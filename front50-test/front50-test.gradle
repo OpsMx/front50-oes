@@ -17,7 +17,6 @@
 dependencies {
   //api("org.apache.groovy:groovy:4.0.9")
 
-
   implementation project(":front50-api")
   implementation project(":front50-core")
   implementation project(":front50-s3")
