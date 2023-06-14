@@ -6,6 +6,7 @@ dependencies {
   implementation "io.spinnaker.kork:kork-core"
   implementation ('com.oracle.oci.sdk:oci-java-sdk-objectstorage:1.19.1'){
         force=true
+        exclude group : "com.nimbusds", module : "nimbus-jose-jwt"
   }
   implementation "com.sun.jersey:jersey-client:1.19.4"
   implementation "org.springframework.boot:spring-boot-autoconfigure"
