@@ -1,5 +1,5 @@
 dependencies {
-  runtimeOnly "mysql:mysql-connector-java:8.0.20"
+  runtimeOnly "mysql:mysql-connector-java"
   testImplementation "org.apache.groovy:groovy:4.0.9"
   testImplementation "net.logstash.logback:logstash-logback-encoder:4.11"
 }
