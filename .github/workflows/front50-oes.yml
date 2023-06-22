@@ -14,12 +14,9 @@ jobs:
   branch-build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - uses: actions/checkout@v2
         with:
-         path: ~/.cache
+          fetch-depth: 0
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -44,7 +41,7 @@ jobs:
       - name: Build
         env:
           ORG_GRADLE_PROJECT_version: ${{ steps.build_variables.outputs.VERSION }}
-        run: ./gradlew --no-daemon -PenableCrossCompilerPlugin=true front50-web:installDist -x test 
+        run: ./gradlew --no-daemon -PenableCrossCompilerPlugin=true front50-web:installDist -x test --no-build-cache
 
       - name: dockerBuildpush
         uses: docker/build-push-action@v2
