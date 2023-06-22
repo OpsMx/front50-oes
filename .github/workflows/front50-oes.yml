@@ -36,10 +36,18 @@ jobs:
           registry: quay.io
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_KEY }}
+      - name: Delete Cache
+        uses: actions/cache@v2
+        with:
+          path: front50-web # Specify the cache key you want to delete
+          key: ${{ runner.os }}-${{ <cache-key> }}
+          restore-keys: |
+            ${{ runner.os }}-${{ <cache-key> }}-
+
       - name: Build
         env:
           ORG_GRADLE_PROJECT_version: ${{ steps.build_variables.outputs.VERSION }}
-        run: ./gradlew --no-daemon -PenableCrossCompilerPlugin=true front50-web:installDist -x test --no-build-cache
+        run: ./gradlew --no-build-cache --no-daemon -PenableCrossCompilerPlugin=true front50-web:installDist -x test 
 
       - name: dockerBuildpush
         uses: docker/build-push-action@v2
