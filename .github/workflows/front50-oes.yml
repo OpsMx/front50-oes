@@ -23,7 +23,6 @@ jobs:
         with:
           java-version: 17
           distribution: 'temurin'
-          cache: 'gradle'
       - name: Prepare build variables
         id: build_variables
         run: |
@@ -40,7 +39,6 @@ jobs:
       - name: Build
         env:
           ORG_GRADLE_PROJECT_version: ${{ steps.build_variables.outputs.VERSION }}
-          CACHEBUST: ${{ github.run_number }}
         run: ./gradlew --no-build-cache --no-daemon -PenableCrossCompilerPlugin=true front50-web:installDist -x test 
 
       - name: dockerBuildpush
