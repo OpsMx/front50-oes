@@ -94,10 +94,7 @@ subprojects { project ->
       implementation("org.jboss.resteasy:resteasy-client:6.2.3.Final")
       implementation("org.jboss.resteasy:resteasy-jaxrs:4.0.0.Beta5")
 
-<<<<<<< HEAD
-=======
       testImplementation("org.codehaus.groovy:groovy")
->>>>>>> 6246e621 (chore(dependencies): remove residual dependency on groovy-all (#1208))
       testImplementation("org.spockframework:spock-core")
       testImplementation("org.springframework.boot:spring-boot-starter-test")
       api("org.spockframework:spock-bom:2.4-M1-groovy-4.0")
@@ -105,12 +102,8 @@ subprojects { project ->
       testImplementation("org.spockframework:spock-spring")
       testImplementation("org.springframework:spring-test")
       testImplementation("org.hamcrest:hamcrest-core")
-<<<<<<< HEAD
       testRuntimeOnly("cglib:cglib-nodep:3.3.0")
-=======
-      testRuntimeOnly("cglib:cglib-nodep")
       testRuntimeOnly("org.junit.vintage:junit-vintage-engine")
->>>>>>> 5b7fb1c3 (chore(tests): Cleanup of useJUnitPlatform() from sub-modules and introducing junit-vintage-engine in front50 (#1218))
       testRuntimeOnly("org.objenesis:objenesis")
     }
   }
