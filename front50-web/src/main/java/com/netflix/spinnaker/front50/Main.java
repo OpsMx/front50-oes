@@ -39,13 +39,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
       DataSourceAutoConfiguration.class,
       GsonAutoConfiguration.class
     })
-@ComponentScan({
-  "com.netflix.spinnaker.front50",
-  "com.netflix.spinnaker.config",
-  "com.netflix.spinnaker.kork",
-  "com.netflix.spectator.api",
-  "com.netflix.spinnaker.front50.config"
-})
+@ComponentScan({"com.netflix.spinnaker.front50", "com.netflix.spinnaker.config"})
 public class Main extends SpringBootServletInitializer {
 
   private static final Map<String, Object> DEFAULT_PROPS =
