@@ -94,7 +94,6 @@ subprojects { project ->
       implementation("org.jboss.resteasy:resteasy-client:6.2.3.Final")
       implementation("org.jboss.resteasy:resteasy-jaxrs:4.0.0.Beta5")
 
-      testImplementation("org.codehaus.groovy:groovy")
       testImplementation("org.spockframework:spock-core")
       testImplementation("org.springframework.boot:spring-boot-starter-test")
       api("org.spockframework:spock-bom:2.4-M1-groovy-4.0")
