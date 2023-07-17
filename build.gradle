@@ -56,6 +56,12 @@ subprojects { project ->
     test {
       testLogging {
         exceptionFormat = 'full'
+        afterSuite { desc, result ->
+          if (!desc.parent) {
+            println "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+            println "Report file: ${reports.html.entryPoint}"
+          }
+        }
       }
       useJUnitPlatform()
     }
