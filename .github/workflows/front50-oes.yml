@@ -8,9 +8,9 @@ on:
 env:
   GRADLE_OPTS: -Dorg.gradle.daemon=false -Xmx6g -Xms6g
   CONTAINER_REGISTRY: quay.io/opsmxpublic
-  K8S_DEPLOYMENT_NAME: spin-front50
-  K8S_SERVICE_NAME: front50
-  K8S_NAMESPACE: cvetarget
+#  K8S_DEPLOYMENT_NAME: spin-front50
+#  K8S_SERVICE_NAME: front50
+#  K8S_NAMESPACE: cvetarget
 
 jobs:
   branch-build:
@@ -66,12 +66,12 @@ jobs:
           tags: |
             "${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-dev"
 
-      - name: Deploy to Kubernetes
-        uses: azure/k8s-set-context@v1
-        with:
-          kubeconfig: ${{ secrets.KUBECONFIG }}
-
-      - name: Edit front50.yml
-        run: |
-          kubectl -n ${{ env.K8S_NAMESPACE }} exec -it spin-spinnaker-halyard-0 -- bash -c "cd /home/spinnaker/.hal/default/service-settings && sed -i '2d' front50.yml && sed -i '1s|^|#|' front50.yml && sed -i '1s|^|artifactId: ${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-dev\n|' front50.yml && hal deploy apply"
-          kubectl rollout status deployment/${{ env.K8S_DEPLOYMENT_NAME }} -n ${{ env.K8S_NAMESPACE }}
+#      - name: Deploy to Kubernetes
+#        uses: azure/k8s-set-context@v1
+#        with:
+#          kubeconfig: ${{ secrets.KUBECONFIG }}
+#
+#      - name: Edit front50.yml
+#        run: |
+#          kubectl -n ${{ env.K8S_NAMESPACE }} exec -it spin-spinnaker-halyard-0 -- bash -c "cd /home/spinnaker/.hal/default/service-settings && sed -i '2d' front50.yml && sed -i '1s|^|#|' front50.yml && sed -i '1s|^|artifactId: ${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-dev\n|' front50.yml && hal deploy apply"
+#          kubectl rollout status deployment/${{ env.K8S_DEPLOYMENT_NAME }} -n ${{ env.K8S_NAMESPACE }}
