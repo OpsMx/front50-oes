@@ -182,7 +182,13 @@ public class ApplicationPermissionsService {
 
     if (fiatConfigurationProperties.getRoleSync().isEnabled()) {
       try {
-        fiatService.get().sync(new ArrayList<>(roles));
+        log.info("Start of the role sync with roles:{}", roles);
+        if (roles.isEmpty()) {
+          fiatService.get().syncOnlyUnrestrictedUser();
+        } else {
+          fiatService.get().sync(new ArrayList<>(roles));
+        }
+        log.info("End of the role sync with roles");
       } catch (RetrofitError e) {
         log.warn("Error syncing users", e);
       }

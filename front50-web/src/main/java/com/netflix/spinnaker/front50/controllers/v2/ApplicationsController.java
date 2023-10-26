@@ -2,6 +2,7 @@ package com.netflix.spinnaker.front50.controllers.v2;
 
 import static java.lang.String.format;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.spinnaker.fiat.shared.FiatService;
 import com.netflix.spinnaker.fiat.shared.FiatStatus;
 import com.netflix.spinnaker.front50.config.FiatConfigurationProperties;
@@ -42,6 +43,8 @@ public class ApplicationsController {
   private final FiatConfigurationProperties fiatConfigurationProperties;
   private final FiatStatus fiatStatus;
   private final ApplicationService applicationService;
+
+  private final ObjectMapper objectMapper = new ObjectMapper();
 
   public ApplicationsController(
       MessageSource messageSource,
@@ -121,8 +124,6 @@ public class ApplicationsController {
     }
 
     Application createdApplication = applicationService.save(app);
-    syncRoles();
-
     return createdApplication;
   }
 
@@ -146,7 +147,6 @@ public class ApplicationsController {
               app.getName(), applicationName));
     }
     Application updatedApplication = applicationService.save(app);
-    syncRoles();
 
     return updatedApplication;
   }
