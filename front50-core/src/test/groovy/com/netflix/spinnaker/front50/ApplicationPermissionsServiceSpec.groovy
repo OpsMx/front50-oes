@@ -48,9 +48,30 @@ class ApplicationPermissionsServiceSpec extends Specification {
 
     where:
     permission                                                  | expectedSyncedRoles
+    appPermission(permissions(Authorization.WRITE, "my_group")) | ["my_group"]
+  }
+
+  @Unroll
+  def "test application creation will sync unrestricted roles in fiat"(permission, expectedSyncedRoles) {
+    given:
+    def fiatService = Mock(FiatService)
+    ApplicationPermissionsService subject = createSubject(
+      fiatService,
+      Mock(ApplicationPermissionDAO) {
+        create(_, _) >> permission
+      }
+    )
+
+    when:
+    subject.createApplicationPermission(permission)
+
+    then:
+    1 * fiatService.syncOnlyUnrestrictedUser()
+
+    where:
+    permission                                                  | expectedSyncedRoles
     appPermission(null)                                         | []
     appPermission(Permissions.EMPTY)                            | []
-    appPermission(permissions(Authorization.WRITE, "my_group")) | ["my_group"]
   }
 
   private Application.Permission appPermission(Permissions permissions) {
