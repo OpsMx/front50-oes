@@ -106,7 +106,7 @@ public class PluginInfo implements Timestamped {
      *
      * @link https://semver.org/
      */
-    @javax.validation.constraints.Pattern(regexp = VERSION_PATTERN)
+    @jakarta.validation.constraints.Pattern(regexp = VERSION_PATTERN)
     private String version;
 
     /** The date of the plugin release. */
