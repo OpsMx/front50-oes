@@ -16,37 +16,43 @@
 
 package com.netflix.spinnaker.front50.controllers
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.netflix.spectator.api.NoopRegistry
 import com.netflix.spinnaker.config.Front50SqlProperties
-import com.netflix.spinnaker.front50.api.model.pipeline.Pipeline
+import com.netflix.spinnaker.fiat.shared.FiatPermissionEvaluator
+import com.netflix.spinnaker.fiat.shared.FiatService
+import com.netflix.spinnaker.fiat.shared.FiatStatus
 import com.netflix.spinnaker.front50.ServiceAccountsService
+import com.netflix.spinnaker.front50.api.model.pipeline.Pipeline
 import com.netflix.spinnaker.front50.api.model.pipeline.Trigger
+import com.netflix.spinnaker.front50.config.FiatConfigurationProperties
 import com.netflix.spinnaker.front50.config.StorageServiceConfigurationProperties
 import com.netflix.spinnaker.front50.model.DefaultObjectKeyLoader
 import com.netflix.spinnaker.front50.model.SqlStorageService
 import com.netflix.spinnaker.front50.model.pipeline.DefaultPipelineDAO
+import com.netflix.spinnaker.front50.model.pipeline.PipelineDAO
 import com.netflix.spinnaker.kork.sql.config.SqlRetryProperties
 import com.netflix.spinnaker.kork.sql.test.SqlTestUtil
 import com.netflix.spinnaker.kork.web.exceptions.ExceptionMessageDecorator
 import com.netflix.spinnaker.kork.web.exceptions.GenericExceptionHandlers
-import com.netflix.spinnaker.kork.web.exceptions.NotFoundException
+import groovy.json.JsonSlurper
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry
 import org.hamcrest.Matchers
 import org.springframework.beans.factory.ObjectProvider
+import org.springframework.http.MediaType
+import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.util.UriComponentsBuilder
+import rx.schedulers.Schedulers
+import spock.lang.AutoCleanup
+import spock.lang.Specification
+import spock.lang.Subject
+import spock.lang.Unroll
 
 import java.time.Clock
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
-import com.fasterxml.jackson.databind.ObjectMapper
-import groovy.json.JsonSlurper
-
-import com.netflix.spinnaker.front50.model.pipeline.PipelineDAO
-import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.setup.MockMvcBuilders
-import rx.schedulers.Schedulers
-import spock.lang.*
 
 import static org.hamcrest.Matchers.containsInAnyOrder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
@@ -57,7 +63,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-
+@ContextConfiguration(classes = com.netflix.spinnaker.front50.TestConfiguration)
 abstract class PipelineControllerTck extends Specification {
   static final int OK = 200
   static final int BAD_REQUEST = 400
@@ -65,6 +71,15 @@ abstract class PipelineControllerTck extends Specification {
   static final int UNPROCESSABLE_ENTITY = 422
 
   MockMvc mockMvc
+
+  FiatService fiatService = Mock(FiatService)
+  FiatStatus fiatStatus = Mock(FiatStatus)
+  FiatConfigurationProperties fiatConfigurationProperties = Mock(FiatConfigurationProperties) {
+    getRoleSync() >> Mock(FiatConfigurationProperties.RoleSyncConfigurationProperties) {
+      isEnabled() >> true
+    }
+  }
+  FiatPermissionEvaluator fiatPermissionEvaluator = Mock(FiatPermissionEvaluator)
 
   @Subject
   PipelineDAO pipelineDAO
@@ -85,7 +100,7 @@ abstract class PipelineControllerTck extends Specification {
           new ObjectMapper(),
           Optional.of(serviceAccountsService),
           Collections.emptyList(),
-          Optional.empty(), fiatPermissionEvaluator, fiatService, fiatConfigurationProperties, fiatStatus
+          Optional.empty(), fiatPermissionEvaluator, Optional.of(fiatService), fiatConfigurationProperties, fiatStatus
         )
       )
       .setControllerAdvice(
@@ -710,7 +725,7 @@ abstract class PipelineControllerTck extends Specification {
 
     and:
     // the pipeline with the id didn't make it in either
-    pipelineDAO.all(true).size == 0
+    pipelineDAO.all(true).size() == 0
   }
 
   def "should optimally refresh the cache after updates and deletes"() {
@@ -776,7 +791,7 @@ abstract class PipelineControllerTck extends Specification {
 
     then:
     // verify that the cache has two items to make sure the test is working as expected
-    allItems.size == 2
+    allItems.size() == 2
 
     when:
     // remove the id from one of the pipelines.
