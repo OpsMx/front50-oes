@@ -79,7 +79,9 @@ abstract class PipelineControllerTck extends Specification {
       isEnabled() >> true
     }
   }
-  FiatPermissionEvaluator fiatPermissionEvaluator = Mock(FiatPermissionEvaluator)
+  FiatPermissionEvaluator fiatPermissionEvaluator = Mock(FiatPermissionEvaluator) {
+    hasPermission(_, _, "PIPELINE", "READ") >> true
+  }
 
   @Subject
   PipelineDAO pipelineDAO
