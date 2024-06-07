@@ -15,7 +15,6 @@ dependencies {
   api("org.jooq:jooq:3.13.6")
   api("org.jooq:jooq-kotlin:3.13.6")
 
-
   implementation "io.strikt:strikt-core"
   implementation "io.github.resilience4j:resilience4j-retry"
 
@@ -26,7 +25,7 @@ dependencies {
   testImplementation "dev.minutest:minutest:1.13.0"
   testImplementation "org.junit.jupiter:junit-jupiter-api"
 
-  testImplementation "mysql:mysql-connector-java"
+  testImplementation "com.mysql:mysql-connector-j"
   testImplementation "org.testcontainers:mysql"
 
   testImplementation "org.testcontainers:postgresql"

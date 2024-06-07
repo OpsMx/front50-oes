@@ -19,7 +19,6 @@ package com.netflix.spinnaker.front50.model
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.netflix.spectator.api.Registry
 import com.netflix.spinnaker.front50.config.S3MetadataStorageProperties
-//import com.netflix.spinnaker.front50.config.S3Properties
 import com.netflix.spinnaker.front50.model.events.S3Event
 import spock.lang.Specification
 import spock.lang.Subject

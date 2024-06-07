@@ -15,7 +15,6 @@
  */
 
 dependencies {
-  //api("org.apache.groovy:groovy:4.0.9")
 
   implementation project(":front50-api")
   implementation project(":front50-core")
@@ -23,7 +22,6 @@ dependencies {
   testImplementation "org.apache.groovy:groovy:4.0.9"
   implementation "org.spockframework:spock-core"
   implementation "com.amazonaws:aws-java-sdk-s3"
-  //testImplementation "net.logstash.logback:logstash-logback-encoder:4.11"
 }
 
 tasks.compileGroovy.enabled = true
