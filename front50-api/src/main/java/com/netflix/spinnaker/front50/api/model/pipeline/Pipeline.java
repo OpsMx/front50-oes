@@ -16,6 +16,7 @@
  */
 package com.netflix.spinnaker.front50.api.model.pipeline;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.netflix.spinnaker.front50.api.model.Timestamped;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,8 +48,17 @@ public class Pipeline implements Timestamped {
   @Getter @Setter private String email;
   @Getter @Setter private Boolean disabled;
   @Getter @Setter private Map<String, Object> template;
-  @Getter @Setter private List<String> roles;
-  @Getter @Setter private String serviceAccount;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private List<String> roles;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private String serviceAccount;
+
   @Getter @Setter private String executionEngine;
   @Getter @Setter private Integer stageCounter;
   @Getter @Setter private List<Map<String, Object>> stages;
