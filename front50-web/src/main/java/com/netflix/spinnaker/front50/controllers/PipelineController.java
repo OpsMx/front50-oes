@@ -473,11 +473,11 @@ public class PipelineController {
     Long storedUpdateTs = existingPipeline.getLastModified();
     Long submittedUpdateTs = pipeline.getLastModified();
     if (!submittedUpdateTs.equals(storedUpdateTs)) {
-      errors.reject(
-          "The submitted pipeline is stale.  submitted updateTs "
-              + submittedUpdateTs
-              + " does not match stored updateTs "
-              + storedUpdateTs);
+      /* errors.reject(
+      "The submitted pipeline is stale.  submitted updateTs "
+          + submittedUpdateTs
+          + " does not match stored updateTs "
+          + storedUpdateTs);*/
     }
   }
 
