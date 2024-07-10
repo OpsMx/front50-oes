@@ -34,9 +34,19 @@ public class Pipeline implements Timestamped {
   @Setter private String id;
   @Getter @Setter private String name;
   @Getter @Setter private String application;
-  @Getter @Setter private String type;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private String type;
+
   @Setter private String schema;
-  @Getter @Setter private Object config;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private Object config;
+
   @Getter @Setter private List<Trigger> triggers = new ArrayList<>();
   @Getter @Setter private Integer index;
 
@@ -45,9 +55,20 @@ public class Pipeline implements Timestamped {
   private String lastModifiedBy;
   @Getter @Setter private Long lastModified;
 
-  @Getter @Setter private String email;
-  @Getter @Setter private Boolean disabled;
-  @Getter @Setter private Map<String, Object> template;
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private String email;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private Boolean disabled;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private Map<String, Object> template;
 
   @JsonInclude(JsonInclude.Include.NON_NULL)
   @Getter
@@ -59,15 +80,41 @@ public class Pipeline implements Timestamped {
   @Setter
   private String serviceAccount;
 
-  @Getter @Setter private String executionEngine;
-  @Getter @Setter private Integer stageCounter;
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private String executionEngine;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private Integer stageCounter;
+
   @Getter @Setter private List<Map<String, Object>> stages;
-  @Getter @Setter private Map<String, Object> constraints;
-  @Getter @Setter private Map<String, Object> payloadConstraints;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private Map<String, Object> constraints;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private Map<String, Object> payloadConstraints;
+
   @Getter @Setter private Boolean keepWaitingPipelines;
   @Getter @Setter private Boolean limitConcurrent;
-  @Getter @Setter private Integer maxConcurrentExecutions;
-  @Getter @Setter private List<Map<String, Object>> parameterConfig;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private Integer maxConcurrentExecutions;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Getter
+  @Setter
+  private List<Map<String, Object>> parameterConfig;
+
   @Getter @Setter private String spelEvaluator;
 
   public String getUpdateTs() {
