@@ -16,6 +16,7 @@
  */
 package com.netflix.spinnaker.front50.api.model.pipeline;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.netflix.spinnaker.front50.api.model.Timestamped;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Pipeline implements Timestamped {
 
   public static final String TYPE_TEMPLATED = "templatedPipeline";
@@ -35,17 +37,11 @@ public class Pipeline implements Timestamped {
   @Getter @Setter private String name;
   @Getter @Setter private String application;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private String type;
+  @Getter @Setter private String type;
 
   @Setter private String schema;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private Object config;
+  @Getter @Setter private Object config;
 
   @Getter @Setter private List<Trigger> triggers = new ArrayList<>();
   @Getter @Setter private Integer index;
@@ -53,67 +49,35 @@ public class Pipeline implements Timestamped {
   private String createTs;
   private String updateTs;
   private String lastModifiedBy;
-  @Getter @Setter private Long lastModified;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private String email;
+  @JsonIgnore @Getter @Setter private Long lastModified;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private Boolean disabled;
+  @Getter @Setter private String email;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private Map<String, Object> template;
+  @Getter @Setter private Boolean disabled;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private List<String> roles;
+  @Getter @Setter private Map<String, Object> template;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private String serviceAccount;
+  @Getter @Setter private List<String> roles;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private String executionEngine;
+  @Getter @Setter private String serviceAccount;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private Integer stageCounter;
+  @Getter @Setter private String executionEngine;
+
+  @Getter @Setter private Integer stageCounter;
 
   @Getter @Setter private List<Map<String, Object>> stages;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private Map<String, Object> constraints;
+  @Getter @Setter private Map<String, Object> constraints;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private Map<String, Object> payloadConstraints;
+  @Getter @Setter private Map<String, Object> payloadConstraints;
 
   @Getter @Setter private Boolean keepWaitingPipelines;
   @Getter @Setter private Boolean limitConcurrent;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private Integer maxConcurrentExecutions;
+  @Getter @Setter private Integer maxConcurrentExecutions;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Getter
-  @Setter
-  private List<Map<String, Object>> parameterConfig;
+  @Getter @Setter private List<Map<String, Object>> parameterConfig;
 
   @Getter @Setter private String spelEvaluator;
 
