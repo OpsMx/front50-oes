@@ -33,6 +33,8 @@ public class Pipeline implements Timestamped {
 
   private Map<String, Object> anyMap = new HashMap<>();
 
+  private Map<String, Object> appConfig = new HashMap<>();
+
   @Setter private String id;
   @Getter @Setter private String name;
   @Getter @Setter private String application;
@@ -93,6 +95,14 @@ public class Pipeline implements Timestamped {
 
   public Map<String, Object> getAny() {
     return anyMap;
+  }
+
+  public void setAppConfig(String key, Object value) {
+    appConfig.put(key, value);
+  }
+
+  public Map<String, Object> getAppConfig() {
+    return appConfig;
   }
 
   @Override
