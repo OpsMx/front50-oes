@@ -87,6 +87,8 @@ public class Pipeline implements Timestamped {
 
   @Getter @Setter private List<Map<String, Object>> parameterConfig;
 
+  @Getter @Setter private List<Map<String, Object>> notifications;
+
   @Getter @Setter private String spelEvaluator;
 
   public String getUpdateTs() {
