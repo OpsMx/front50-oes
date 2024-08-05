@@ -52,6 +52,8 @@ public class Pipeline implements Timestamped {
 
   @Getter @Setter private List<ExpectedArtifact> expectedArtifacts = new ArrayList<>();
 
+  @Getter @Setter private Map<String, Object> locked;
+
   @Getter @Setter private Integer index;
 
   private String createTs;
