@@ -80,4 +80,14 @@ public class V2TemplateConfiguration {
   private List<Map<String, Object>> notifications;
 
   private String spelEvaluator;
+
+  private Map<String, Object> variables = new HashMap<>();
+
+  private String createTs;
+
+  private String updateTs;
+
+  private String lastModifiedBy;
+
+  private List<Object> exclude;
 }

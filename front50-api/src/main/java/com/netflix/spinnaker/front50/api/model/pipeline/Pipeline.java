@@ -93,6 +93,10 @@ public class Pipeline implements Timestamped {
 
   @Getter @Setter private String spelEvaluator;
 
+  @Getter @Setter private Map<String, Object> variables = new HashMap<>();
+
+  @Getter @Setter private List<Object> exclude;
+
   public String getUpdateTs() {
     var lastModified = getLastModified();
 
