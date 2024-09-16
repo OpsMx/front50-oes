@@ -90,4 +90,6 @@ public class V2TemplateConfiguration {
   private String lastModifiedBy;
 
   private List<Object> exclude;
+
+  private String id;
 }
