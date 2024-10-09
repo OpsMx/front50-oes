@@ -97,6 +97,8 @@ public class Pipeline implements Timestamped {
 
   @Getter @Setter private List<Object> exclude;
 
+  @Getter @Setter private Boolean regenerateCronTriggerIds;
+
   public String getUpdateTs() {
     var lastModified = getLastModified();
 
