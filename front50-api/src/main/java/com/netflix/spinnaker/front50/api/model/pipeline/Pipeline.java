@@ -17,7 +17,6 @@
 package com.netflix.spinnaker.front50.api.model.pipeline;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.netflix.spinnaker.front50.api.model.Timestamped;
 import com.netflix.spinnaker.kork.artifacts.model.ExpectedArtifact;
@@ -29,7 +28,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
+// @JsonIgnoreProperties(ignoreUnknown = true)
 public class Pipeline implements Timestamped {
 
   public static final String TYPE_TEMPLATED = "templatedPipeline";
