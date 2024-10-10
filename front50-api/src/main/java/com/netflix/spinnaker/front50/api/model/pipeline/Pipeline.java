@@ -17,6 +17,7 @@
 package com.netflix.spinnaker.front50.api.model.pipeline;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.netflix.spinnaker.front50.api.model.Timestamped;
 import com.netflix.spinnaker.kork.artifacts.model.ExpectedArtifact;
@@ -28,6 +29,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Pipeline implements Timestamped {
 
   public static final String TYPE_TEMPLATED = "templatedPipeline";
@@ -51,8 +53,6 @@ public class Pipeline implements Timestamped {
   @Getter @Setter private List<Trigger> triggers = new ArrayList<>();
 
   @Getter @Setter private List<ExpectedArtifact> expectedArtifacts = new ArrayList<>();
-
-  @Getter @Setter private Map<String, Object> locked;
 
   @Getter @Setter private Integer index;
 
@@ -88,8 +88,6 @@ public class Pipeline implements Timestamped {
   @Getter @Setter private Integer maxConcurrentExecutions;
 
   @Getter @Setter private List<Map<String, Object>> parameterConfig;
-
-  @Getter @Setter private List<Map<String, Object>> notifications;
 
   @Getter @Setter private String spelEvaluator;
 
