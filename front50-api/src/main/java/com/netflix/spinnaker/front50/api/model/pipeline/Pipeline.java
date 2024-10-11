@@ -16,6 +16,8 @@
  */
 package com.netflix.spinnaker.front50.api.model.pipeline;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.netflix.spinnaker.front50.api.model.Timestamped;
@@ -35,6 +37,8 @@ public class Pipeline implements Timestamped {
   private Map<String, Object> anyMap = new HashMap<>();
 
   private Map<String, Object> appConfig = new HashMap<>();
+
+  private Map<String, Object> additionalFields = new HashMap<>();
 
   @Setter private String id;
   @Getter @Setter private String name;
@@ -96,6 +100,18 @@ public class Pipeline implements Timestamped {
   @Getter @Setter private Map<String, Object> variables = new HashMap<>();
 
   @Getter @Setter private List<Object> exclude;
+
+  // Captures any fields that are not explicitly defined
+  @JsonAnySetter
+  public void setAdditionalField(String key, Object value) {
+    additionalFields.put(key, value);
+  }
+
+  // Unrecognized fields are serialized back into JSON
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalFields() {
+    return additionalFields;
+  }
 
   public String getUpdateTs() {
     var lastModified = getLastModified();
