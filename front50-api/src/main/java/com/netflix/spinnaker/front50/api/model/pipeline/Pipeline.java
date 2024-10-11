@@ -16,9 +16,7 @@
  */
 package com.netflix.spinnaker.front50.api.model.pipeline;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.*;
 import com.netflix.spinnaker.front50.api.model.Timestamped;
 import com.netflix.spinnaker.kork.artifacts.model.ExpectedArtifact;
 import java.util.ArrayList;
@@ -35,6 +33,8 @@ public class Pipeline implements Timestamped {
   public static final String TYPE_TEMPLATED = "templatedPipeline";
 
   // private Map<String, Object> anyMap = new HashMap<>();
+
+  private Map<String, Object> additionalFields = new HashMap<>();
 
   private Map<String, Object> appConfig = new HashMap<>();
 
@@ -108,6 +108,18 @@ public class Pipeline implements Timestamped {
   public Map<String, Object> getAny() {
     return anyMap;
   }*/
+
+  // Use this to capture any fields that are not explicitly defined
+  @JsonAnySetter
+  public void setAdditionalField(String key, Object value) {
+    additionalFields.put(key, value);
+  }
+
+  // Ensure unrecognized fields are also serialized back into JSON
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalFields() {
+    return additionalFields;
+  }
 
   public void setAppConfig(String key, Object value) {
     appConfig.put(key, value);
