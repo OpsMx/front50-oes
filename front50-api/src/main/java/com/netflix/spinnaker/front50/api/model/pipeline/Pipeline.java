@@ -31,9 +31,9 @@ public class Pipeline implements Timestamped {
 
   public static final String TYPE_TEMPLATED = "templatedPipeline";
 
-  private Map<String, Object> anyMap = new HashMap<>();
+  /*private Map<String, Object> anyMap = new HashMap<>();
 
-  private Map<String, Object> appConfig = new HashMap<>();
+  private Map<String, Object> appConfig = new HashMap<>();*/
 
   private Map<String, Object> additionalFields = new HashMap<>();
 
@@ -116,7 +116,7 @@ public class Pipeline implements Timestamped {
     return lastModified != null ? lastModified.toString() : null;
   }
 
-  public void setAny(String key, Object value) {
+  /*public void setAny(String key, Object value) {
     anyMap.put(key, value);
   }
 
@@ -130,7 +130,7 @@ public class Pipeline implements Timestamped {
 
   public Map<String, Object> getAppConfig() {
     return appConfig;
-  }
+  }*/
 
   @Override
   public String getId() {
