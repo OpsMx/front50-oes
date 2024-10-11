@@ -17,6 +17,7 @@
 
 package com.netflix.spinnaker.front50.migrations;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.spinnaker.front50.api.model.Timestamped;
 import com.netflix.spinnaker.front50.api.model.pipeline.Pipeline;
@@ -55,7 +56,8 @@ public class V2PipelineTemplateSourceToArtifactMigration implements Migration {
     this.objectMapper =
         new ObjectMapper()
             .addMixIn(Timestamped.class, TimestampedMixins.class)
-            .addMixIn(Pipeline.class, PipelineMixins.class);
+            .addMixIn(Pipeline.class, PipelineMixins.class)
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
   }
 
   @Override
