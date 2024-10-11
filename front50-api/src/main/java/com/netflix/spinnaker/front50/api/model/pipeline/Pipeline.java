@@ -31,11 +31,11 @@ public class Pipeline implements Timestamped {
 
   public static final String TYPE_TEMPLATED = "templatedPipeline";
 
-  // private Map<String, Object> anyMap = new HashMap<>();
-
-  private Map<String, Object> additionalFields = new HashMap<>();
+  private Map<String, Object> anyMap = new HashMap<>();
 
   private Map<String, Object> appConfig = new HashMap<>();
+
+  private Map<String, Object> additionalFields = new HashMap<>();
 
   @Setter private String id;
   @Getter @Setter private String name;
@@ -52,6 +52,8 @@ public class Pipeline implements Timestamped {
   @Getter @Setter private List<Trigger> triggers = new ArrayList<>();
 
   @Getter @Setter private List<ExpectedArtifact> expectedArtifacts = new ArrayList<>();
+
+  @Getter @Setter private Map<String, Object> locked;
 
   @Getter @Setter private Integer index;
 
@@ -88,11 +90,25 @@ public class Pipeline implements Timestamped {
 
   @Getter @Setter private List<Map<String, Object>> parameterConfig;
 
+  @Getter @Setter private List<Map<String, Object>> notifications;
+
   @Getter @Setter private String spelEvaluator;
 
-  // @Getter @Setter private Map<String, Object> variables = new HashMap<>();
+  @Getter @Setter private Map<String, Object> variables = new HashMap<>();
 
   @Getter @Setter private List<Object> exclude;
+
+  // Captures any fields that are not explicitly defined
+  @JsonAnySetter
+  public void setAdditionalField(String key, Object value) {
+    additionalFields.put(key, value);
+  }
+
+  // Unrecognized fields are serialized back into JSON
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalFields() {
+    return additionalFields;
+  }
 
   public String getUpdateTs() {
     var lastModified = getLastModified();
@@ -100,24 +116,12 @@ public class Pipeline implements Timestamped {
     return lastModified != null ? lastModified.toString() : null;
   }
 
-  /* public void setAny(String key, Object value) {
+  public void setAny(String key, Object value) {
     anyMap.put(key, value);
   }
 
   public Map<String, Object> getAny() {
     return anyMap;
-  }*/
-
-  // Use this to capture any fields that are not explicitly defined
-  @JsonAnySetter
-  public void setAdditionalField(String key, Object value) {
-    additionalFields.put(key, value);
-  }
-
-  // Ensure unrecognized fields are also serialized back into JSON
-  @JsonAnyGetter
-  public Map<String, Object> getAdditionalFields() {
-    return additionalFields;
   }
 
   public void setAppConfig(String key, Object value) {
