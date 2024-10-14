@@ -4,7 +4,7 @@ on:
   workflow_call:
   push:
     branches:
-      - OES-1.33.x
+      - UnRecognisedFieldInArtifact
 env:
   GRADLE_OPTS: -Dorg.gradle.daemon=false -Xmx6g -Xms6g
   CONTAINER_REGISTRY: quay.io/opsmxpublic
@@ -49,7 +49,7 @@ jobs:
             sed  -e 's|NEXUS_PASSWORD|${{ secrets.NEXUS_PASSWORD }}|' -i build.gradle
             sed  -e 's|NEXUS_URL|${{ secrets.NEXUS_URL }}|' -i settings.gradle
             sed  -e 's|NEXUS_URL|${{ secrets.NEXUS_URL }}|' -i build.gradle
-            
+
              ./gradlew --no-build-cache --no-daemon -PenableCrossCompilerPlugin=true front50-web:installDist -x test
 
       - name: dockerBuildpush
