@@ -18,6 +18,8 @@ package com.netflix.spinnaker.front50.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.spinnaker.front50.api.model.pipeline.Pipeline;
+import com.netflix.spinnaker.front50.jackson.mixins.PipelineMixins;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,6 +30,7 @@ public class DeserializeCustomConfig {
   public ObjectMapper objectMapper() {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    objectMapper.addMixIn(Pipeline.class, PipelineMixins.class);
     return objectMapper;
   }
 }
