@@ -16,6 +16,8 @@
  */
 package com.netflix.spinnaker.front50.api.model.pipeline;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.netflix.spinnaker.front50.api.model.Timestamped;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,11 +26,14 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Pipeline implements Timestamped {
 
   public static final String TYPE_TEMPLATED = "templatedPipeline";
 
   private Map<String, Object> anyMap = new HashMap<>();
+
+  private Map<String, Object> appConfig = new HashMap<>();
 
   @Setter private String id;
   @Getter @Setter private String name;
@@ -42,7 +47,8 @@ public class Pipeline implements Timestamped {
   private String createTs;
   private String updateTs;
   private String lastModifiedBy;
-  @Getter @Setter private Long lastModified;
+
+  @JsonIgnore @Getter @Setter private Long lastModified;
 
   @Getter @Setter private String email;
   @Getter @Setter private Boolean disabled;
@@ -72,6 +78,14 @@ public class Pipeline implements Timestamped {
 
   public Map<String, Object> getAny() {
     return anyMap;
+  }
+
+  public void setAppConfig(String key, Object value) {
+    appConfig.put(key, value);
+  }
+
+  public Map<String, Object> getAppConfig() {
+    return appConfig;
   }
 
   @Override
