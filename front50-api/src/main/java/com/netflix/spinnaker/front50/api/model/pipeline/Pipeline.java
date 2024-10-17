@@ -19,7 +19,6 @@ package com.netflix.spinnaker.front50.api.model.pipeline;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.netflix.spinnaker.front50.api.model.Timestamped;
-import com.netflix.spinnaker.kork.artifacts.model.ExpectedArtifact;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,26 +33,13 @@ public class Pipeline implements Timestamped {
 
   private Map<String, Object> anyMap = new HashMap<>();
 
-  private Map<String, Object> appConfig = new HashMap<>();
-
   @Setter private String id;
   @Getter @Setter private String name;
   @Getter @Setter private String application;
-
-  @Getter @Setter private String description;
-
   @Getter @Setter private String type;
-
   @Setter private String schema;
-
   @Getter @Setter private Object config;
-
   @Getter @Setter private List<Trigger> triggers = new ArrayList<>();
-
-  @Getter @Setter private List<ExpectedArtifact> expectedArtifacts = new ArrayList<>();
-
-  @Getter @Setter private Map<String, Object> locked;
-
   @Getter @Setter private Integer index;
 
   private String createTs;
@@ -63,39 +49,20 @@ public class Pipeline implements Timestamped {
   @JsonIgnore @Getter @Setter private Long lastModified;
 
   @Getter @Setter private String email;
-
   @Getter @Setter private Boolean disabled;
-
   @Getter @Setter private Map<String, Object> template;
-
   @Getter @Setter private List<String> roles;
-
   @Getter @Setter private String serviceAccount;
-
   @Getter @Setter private String executionEngine;
-
   @Getter @Setter private Integer stageCounter;
-
   @Getter @Setter private List<Map<String, Object>> stages;
-
   @Getter @Setter private Map<String, Object> constraints;
-
   @Getter @Setter private Map<String, Object> payloadConstraints;
-
   @Getter @Setter private Boolean keepWaitingPipelines;
   @Getter @Setter private Boolean limitConcurrent;
-
   @Getter @Setter private Integer maxConcurrentExecutions;
-
   @Getter @Setter private List<Map<String, Object>> parameterConfig;
-
-  @Getter @Setter private List<Map<String, Object>> notifications;
-
   @Getter @Setter private String spelEvaluator;
-
-  @Getter @Setter private Map<String, Object> variables = new HashMap<>();
-
-  @Getter @Setter private List<Object> exclude;
 
   public String getUpdateTs() {
     var lastModified = getLastModified();
@@ -109,14 +76,6 @@ public class Pipeline implements Timestamped {
 
   public Map<String, Object> getAny() {
     return anyMap;
-  }
-
-  public void setAppConfig(String key, Object value) {
-    appConfig.put(key, value);
-  }
-
-  public Map<String, Object> getAppConfig() {
-    return appConfig;
   }
 
   @Override
